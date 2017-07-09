@@ -9,6 +9,15 @@ var MemoryDataStore = middleware.MemoryDataStore;
 var Resource = middleware.Resource;
 
 middleware(path.join(__dirname, 'api-docs.json'), app, function(err, middleware) {
+
+  app.use(
+    middleware.metadata(),
+    middleware.CORS(),
+    middleware.files(),
+    middleware.parseRequest(),
+    middleware.validateRequest()
+  );
+
   var myDB = new MemoryDataStore();
   var users = [
     {id: '1', name: 'Fan', phone: '18600000001'},
@@ -37,18 +46,20 @@ middleware(path.join(__dirname, 'api-docs.json'), app, function(err, middleware)
   );
 
   app.post('/pets/buy', function(req, res, next) {
-    var now = new Date();
-    var newOrder = {
-      "id": now.getTime(),
-      "message": "A mock order",
-      "orderStatus": "CREATED",
-      "orderTime": now.toGMTString(),
-      "status": "OK"
-    };
+    myDB.get('/pets/'+req.body.petId, function(err, pet) {
+      if (pet){
+        var now = new Date();
+        var newOrder = {
+          "id": now.getTime(),
+          "message":  pet.data.name + " is ordered by user: " +req.headers['user-id'],
+          "orderStatus": "CREATED",
+          "orderTime": now.toGMTString()
+        };
 
-    myDB.save(new Resource('/orders/'+req.headers['user-id'], now.getTime(), newOrder), function(err, order) {
-      if (order){
-        res.body = order.data;
+        myDB.save(new Resource('/orders/'+req.headers['user-id'], now.getTime(), newOrder));
+        res.body = newOrder;
+      } else{
+        res.status(400);
       }
     });
     next();
@@ -105,11 +116,6 @@ middleware(path.join(__dirname, 'api-docs.json'), app, function(err, middleware)
   });
 
   app.use(
-    middleware.metadata(),
-    middleware.CORS(),
-    middleware.files(),
-    middleware.parseRequest(),
-    middleware.validateRequest(),
     middleware.mock(myDB)
   );
 
