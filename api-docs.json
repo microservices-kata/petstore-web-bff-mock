@@ -3,12 +3,10 @@
   "info": {
     "version": "1.0",
     "title": "Pet Store Web BFF API",
-    "license": {
-        "name": "Apache 2.0",
-        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-    }
+    "license": {}
   },
   "host": "localhost:8090",
+  "basePath": "/",
   "tags": [
     {
       "name": "order-controller",
@@ -530,8 +528,8 @@
         "parameters": [
           {
             "in": "body",
-            "name": "registerReq",
-            "description": "registerReq",
+            "name": "loginReq",
+            "description": "loginReq",
             "required": true,
             "schema": {
               "$ref": "#/definitions/LoginReq"
@@ -632,21 +630,8 @@
         "imageUrl": {
           "type": "string"
         },
-        "message": {
-          "type": "string"
-        },
         "name": {
           "type": "string"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
         }
       }
     },
@@ -660,7 +645,8 @@
           "type": "string",
           "enum": [
             "Male",
-            "Female"
+            "Female",
+            "Unknown"
           ]
         },
         "name": {
@@ -680,9 +666,6 @@
         "id": {
           "type": "string"
         },
-        "message": {
-          "type": "string"
-        },
         "orderStatus": {
           "type": "string",
           "enum": [
@@ -693,16 +676,6 @@
         "orderTime": {
           "type": "string",
           "format": "date-time"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
         }
       }
     },
@@ -718,21 +691,8 @@
         "imageUrl": {
           "type": "string"
         },
-        "message": {
-          "type": "string"
-        },
         "name": {
           "type": "string"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
         }
       }
     },
@@ -746,13 +706,11 @@
           "type": "string",
           "enum": [
             "Male",
-            "Female"
+            "Female",
+            "Unknown"
           ]
         },
         "id": {
-          "type": "string"
-        },
-        "message": {
           "type": "string"
         },
         "name": {
@@ -760,16 +718,6 @@
         },
         "phone": {
           "type": "string"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
         }
       }
     },
@@ -800,9 +748,6 @@
           "type": "integer",
           "format": "int32"
         },
-        "message": {
-          "type": "string"
-        },
         "price": {
           "type": "number",
           "format": "double"
@@ -822,16 +767,6 @@
         "shopPhoneNum": {
           "type": "string"
         },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
-        },
         "thumbnailUrl": {
           "type": "string"
         }
@@ -841,9 +776,6 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
-        },
-        "message": {
           "type": "string"
         },
         "price": {
@@ -856,16 +788,6 @@
         "shopName": {
           "type": "string"
         },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
-        },
         "thumbnailUrl": {
           "type": "string"
         }
@@ -875,9 +797,6 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
-        },
-        "message": {
           "type": "string"
         },
         "orderStatus": {
@@ -893,16 +812,6 @@
         },
         "pet": {
           "$ref": "#/definitions/PetRes"
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "OK",
-            "UNAUTHORIZED",
-            "BAD_REQUEST",
-            "NOT_FOUND",
-            "SERVER_ERROR"
-          ]
         },
         "user": {
           "$ref": "#/definitions/UserRes"
