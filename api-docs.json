@@ -6,7 +6,6 @@
     "license": {}
   },
   "host": "localhost:8090",
-  "basePath": "/",
   "tags": [
     {
       "name": "order-controller",
